@@ -1,7 +1,7 @@
 from tkinter import * #Importa todos os modulos do Tkinter
 from tkinter import messagebox #Importa as caixas de mensagem
 from tkinter import ttk # Importa o módulo de widgets temáticos tkinter
-from DataBase import DataBase #Importa a classe DataBase do módulo DataBase
+from DataBase import Database #Importa a classe DataBase do módulo DataBase
 
 #Criar a janela
 
@@ -19,7 +19,7 @@ janela.attributes("-alpha",0.9) #Define a transparência da tela 0.0 até 1.0)
 logo = PhotoImage (file = 'icon/Caio Aires.png') #Define o icon da tela
 
 LeftFrame = Frame(janela,width=200,height=300,bg='MIDNIGHTBLUE',relief='raise')
-LeftFrame.pack(side=RIGHT) #Posiciona o frame a esquerda
+LeftFrame.pack(side=LEFT) #Posiciona o frame a esquerda
 
 RightFrame = Frame(janela,width=395,height=300,bg='MIDNIGHTBLUE',relief='raise')
 RightFrame.pack(side=RIGHT) #Posiciona o frame a esquerda
@@ -36,20 +36,22 @@ UserEntry = ttk.Entry(RightFrame,width=30)
 UserEntry.place(x=120,y=115)
 
 SenhaLabel = Label(RightFrame,text="Senha",font=("Century Gothic",20),bg='MIDNIGHTBLUE',fg='white')
-SenhaLabel.place(x=5,y=165)
+SenhaLabel.place(x=5,y=150)
 
-PasswordEntry = ttk.Entry(RightFrame,width=30,show="°")
-PasswordEntry.place(x=120,y=175)
+SenhaEntry = ttk.Entry(RightFrame,width=30,show="°")
+SenhaEntry.place(x=120,y=165)
 
 #Função de login
 def Login():
     #Obtém valor do campo preechido
     user = UserEntry.get() 
-    senha = PasswordEntry.get()
+    senha = SenhaEntry.get()
     
     #Conectar ao banco de dados
-    db = DataBase() #Cria uma instância da classe DataBase
-    db.cursor.execute("SELECT * FROM usuario = %s AND senha = %s",(user,senha)) #Executa a cosulta SQL para verificar o usuário e a senha
+    db = Database() #Cria uma instância da classe Database
+    db.cursor.execute("""
+    SELECT * FROM usuario1
+    WHERE usuario = %s AND senha =%s""", (user,senha))                   
     VerifyLogin = db.cursor.fetchone() #Obtém  resultado da consulta
 
     #Verifica se o usuário já foi encontrado
@@ -69,16 +71,16 @@ def Registrar():
     RegisterButton.place(x=5000)
 
     #Inserindo widgets de cadastro
-    NameLabel = Label(RightFrame,text="Nome:",font=("Century Gothic",20),Bg= "MIDNIGHTBLUE",fg= "White")
+    NameLabel = Label(RightFrame,text="Nome:",font=("Century Gothic",20),bg= "MIDNIGHTBLUE",fg= "White")
     NameLabel.place(x=5,y=5)
 
     NameEntry = ttk.Entry(RightFrame,width=30)
     NameEntry.place(x=120,y=20)
 
-    EmailLabel = Label(RightFrame,text="Nome:",font=("Century Gothic",20),Bg= "MIDNIGHTBLUE",fg= "White")
+    EmailLabel = Label(RightFrame,text="Nome:",font=("Century Gothic",20),bg= "MIDNIGHTBLUE",fg= "White")
     EmailLabel.place(x=5,y=40)
 
-    EmailEntry = ttk.Entry(RightFrame,wifth= 30)
+    EmailEntry = ttk.Entry(RightFrame,width= 30)
     EmailEntry.place(x=120,y=55)
 
     def RegistrarNoBanco():
@@ -90,10 +92,10 @@ def Registrar():
         senha = UserEntry.get()
 
         #Verifica se todos os campos estão preenchidos
-        if nome =="" or email == "" and usuario == "" and senha == "":
+        if nome =="" or email == "" or usuario == "" or senha == "":
             messagebox.showerror(title="Erro de registro",message="Preencha todos os campos!")
         else:
-            db = DataBase() #Cria uma instância da classe Database
+            db = Database() #Cria uma instância da classe Database
             db.RegistrarNobanco(nome,email,usuario,senha) #Chama o metódo para registrar no banco de dados
             messagebox.showinfo("Sucesso!","Usuário registrado com sucesso")
         #Limpa os campos após os registros
@@ -101,10 +103,10 @@ def Registrar():
             NameEntry.delete(0,END)
             EmailEntry.delete(0,END)
             UserEntry.delete(0,END)
-            PasswordEntry.delete(0,END)
+            SenhaEntry.delete(0,END)
 
-    RegisterButton = ttk.Button(RightFrame,text="Registrar",width=15, command= RegistrarNoBanco) #Cria um botão de registro
-    RegisterButton.place(x=150,y=225) 
+    Register = ttk.Button(RightFrame,text="Registrar",width=15, command= RegistrarNoBanco) #Cria um botão de registro
+    Register.place(x=150,y=225) 
 
     def VoltarLogin():
         #Remove os botões da tela de login
@@ -112,7 +114,7 @@ def Registrar():
         NameEntry.place(x=5000)
         EmailLabel.place(x=5000)
         EmailEntry.place(x=5000)
-        RegisterButton.place(x=5000)
+        Register.place(x=5000)
         VoltarButton.place(x=5000)
     
     #Trazendo de volta os widgets
@@ -123,8 +125,8 @@ def Registrar():
     VoltarButton = ttk.Button(RightFrame,text="VOLTAR",width=15,command=VoltarLogin)
     VoltarButton.place(x=150,y=225)
 
-Register = ttk.Button(RightFrame,text="Registrar",width=15, command= Registrar) #Cria um botão de registro
-Register.place(x=150,y=250)
+RegisterButton = ttk.Button(RightFrame,text="Registrar",width=15, command= Registrar) #Cria um botão de registro
+RegisterButton.place(x=150,y=255)
 
 janela.mainloop()
 
