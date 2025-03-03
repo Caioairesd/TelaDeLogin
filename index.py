@@ -1,7 +1,7 @@
 from tkinter import * #Importa todos os modulos do Tkinter
 from tkinter import messagebox #Importa as caixas de mensagem
 from tkinter import ttk # Importa o módulo de widgets temáticos tkinter
-from DataBase import Database #Importa a classe DataBase do módulo DataBase
+from Database import Database #Importa a classe DataBase do módulo DataBase
 
 #Criar a janela
 
@@ -51,7 +51,7 @@ def Login():
     db = Database() #Cria uma instância da classe Database
     db.cursor.execute("""
     SELECT * FROM usuario1
-    WHERE usuario = %s AND senha =%s""", (user,senha))                   
+    WHERE usuario = %s AND senha =%s""",(user,senha))                   
     VerifyLogin = db.cursor.fetchone() #Obtém  resultado da consulta
 
     #Verifica se o usuário já foi encontrado
@@ -62,7 +62,7 @@ def Login():
 
 #Criando os botões
 LoginButton = ttk.Button(RightFrame,text="Login",width=15,command=Login)
-LoginButton.place(x=150,y=225)
+LoginButton.place(x=80,y=225)
 
 #Função para registrar novo usuário
 def Registrar():
@@ -98,15 +98,15 @@ def Registrar():
             db = Database() #Cria uma instância da classe Database
             db.RegistrarNobanco(nome,email,usuario,senha) #Chama o metódo para registrar no banco de dados
             messagebox.showinfo("Sucesso!","Usuário registrado com sucesso")
-        #Limpa os campos após os registros
-
+            
+            #Limpa os campos após os registros
             NameEntry.delete(0,END)
             EmailEntry.delete(0,END)
             UserEntry.delete(0,END)
             SenhaEntry.delete(0,END)
 
     Register = ttk.Button(RightFrame,text="Registrar",width=15, command= RegistrarNoBanco) #Cria um botão de registro
-    Register.place(x=150,y=225) 
+    Register.place(x=80,y=225) 
 
     def VoltarLogin():
         #Remove os botões da tela de login
@@ -118,15 +118,15 @@ def Registrar():
         VoltarButton.place(x=5000)
     
     #Trazendo de volta os widgets
-        LoginButton.place(x=150)
+        LoginButton.place(x=80)
         RegisterButton.place(x=150)
     
     #Criando botão login
     VoltarButton = ttk.Button(RightFrame,text="VOLTAR",width=15,command=VoltarLogin)
-    VoltarButton.place(x=150,y=225)
+    VoltarButton.place(x=220,y=225)
 
 RegisterButton = ttk.Button(RightFrame,text="Registrar",width=15, command= Registrar) #Cria um botão de registro
-RegisterButton.place(x=150,y=255)
+RegisterButton.place(x=220,y=255)
 
 janela.mainloop()
 

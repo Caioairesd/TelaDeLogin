@@ -11,34 +11,33 @@ class Database:
         )
 
         self.cursor = self.conn.cursor() #Cria um cursor para executar comandos SQL
-        self.cursor.execute('''CREATE TABLE IF NOT EXISTS usuario1(
-            idUsuario INT AUTO_INCREMENT PRIMARY KEY,
-            nome TEXT(255), 
-            email TEXT(255), 
-            usuario TEXT(255), 
-            senha TEXT(255)
-        );''')
+        self.cursor.execute("""CREATE TABLE IF NOT EXISTS usuario1(
+                idUsuario INT AUTO_INCREMENT PRIMARY KEY,
+                nome TEXT(255), 
+                email TEXT(255), 
+                usuario TEXT(255), 
+                senha TEXT(255)
+             );""")
         self.conn.commit()
 
         print("Conectando ao banco de dados...")
 
     def RegistrarNoBanco(self,nome,email,usuario,senha):
-        self.cursor.execute("INSERT INTO usuario 1 (nome,email,usuario,senha) VALUES (%S,%S,%S,%S,",
-                            (nome,email,usuario,senha))#Insere os dados do usuário na tabela
+        self.cursor.execute("INSERT INTO usuario 1 (nome,email,usuario,senha)VALUES(%S,%S,%S,%S)",(nome,email,usuario,senha))#Insere os dados do usuário na tabela
         self.conn.commit() #Confirma a inserção dos dados
 
     def Alterar(self,idUsuario,nome,email,usuario,senha):
-        self.cursor.execute("UPDATE usuario1 SET nome = %s,email = %s,usuario = %s,senha = %s WHERE idUsuario =%s",
-                            (nome,email,usuario,senha,idUsuario)) #Atualiza o usuário com o id fornecido
+        self.cursor.execute("UPDATE usuario1 SET nome = %s,email = %s,usuario = %s,senha = %s WHERE idUsuario =%s",(nome,email,usuario,senha,idUsuario)) #Atualiza o usuário com o id fornecido
         self.conn.commit()
 
     def Excluir(self,idUsuario):
-        self.cursor.execute("DELETE FROM usuario1 WHERE idUsuario = %s ",(idUsuario))
+        self.cursor.execute("DELETE FROM usuario1 WHERE idUsuario = %s ",(idUsuario,))
         self.conn.commit()
         
     def buscar(self,idUsuario):
-        self.cursor.execute("SELECT * FROM usuario1 WHERE idUsuario = %s",(idUsuario))
-        return self.cursor.fetchone()
+        self.cursor.execute("SELECT * FROM usuario1 WHERE idUsuario = %s",(idUsuario,))
+        return self.conn.fetchone()
+    
     def __del__(self):
         self.conn.close()
 
