@@ -6,7 +6,7 @@ class Database:
         self.conn = mysql.connector.connect(
             host = "localhost",
             user = "root",
-            password = "",
+            password = "root",
             database = "caiosilva_db",
         )
 
@@ -23,7 +23,7 @@ class Database:
         print("Conectando ao banco de dados...")
 
     def RegistrarNoBanco(self,nome,email,usuario,senha):
-        self.cursor.execute("INSERT INTO usuario 1 (nome,email,usuario,senha)VALUES(%S,%S,%S,%S)",(nome,email,usuario,senha))#Insere os dados do usuário na tabela
+        self.cursor.execute("INSERT INTO usuario1 (nome,email,usuario,senha)VALUES(%s,%s,%s,%s)",(nome,email,usuario,senha))#Insere os dados do usuário na tabela
         self.conn.commit() #Confirma a inserção dos dados
 
     def Alterar(self,idUsuario,nome,email,usuario,senha):

@@ -56,7 +56,7 @@ def Login():
 
     #Verifica se o usuário já foi encontrado
     if VerifyLogin:
-        messagebox.showinfo(title="INFO LOGIN",messagebox="Acesso confirmado. Bem vindo!") #Mensagem de login bem sucessedido
+        messagebox.showinfo(title="INFO LOGIN",message="Acesso confirmado. Bem vindo!") #Mensagem de login bem sucessedido
     else:
         messagebox.showerror(title="INFO LOGIN",message="Acesso negado. Verifique se está cadatrado no sistema") #Mensagem de erro
 
@@ -77,7 +77,7 @@ def Registrar():
     NameEntry = ttk.Entry(RightFrame,width=30)
     NameEntry.place(x=120,y=20)
 
-    EmailLabel = Label(RightFrame,text="Nome:",font=("Century Gothic",20),bg= "MIDNIGHTBLUE",fg= "White")
+    EmailLabel = Label(RightFrame,text="Email:",font=("Century Gothic",20),bg= "MIDNIGHTBLUE",fg= "White")
     EmailLabel.place(x=5,y=40)
 
     EmailEntry = ttk.Entry(RightFrame,width= 30)
@@ -89,7 +89,7 @@ def Registrar():
         nome = NameEntry.get()
         email = EmailEntry.get()
         usuario = UserEntry.get()
-        senha = UserEntry.get()
+        senha = SenhaEntry.get()
 
         #Verifica se todos os campos estão preenchidos
         if nome =="" or email == "" or usuario == "" or senha == "":
@@ -126,7 +126,7 @@ def Registrar():
     VoltarButton.place(x=220,y=225)
 
 RegisterButton = ttk.Button(RightFrame,text="Registrar",width=15, command= Registrar) #Cria um botão de registro
-RegisterButton.place(x=220,y=255)
+RegisterButton.place(x=220,y=225)
 
 janela.mainloop()
 
